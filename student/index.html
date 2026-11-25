@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Attendance - Student Site</title>
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <section class="login" id="login">
+
+        <div class="art">
+
+            <div class="logo">
+                <i>SA</i>
+                Smart Attendance System
+            </div>
+
+            <div>
+                <h1>
+                    Check your attendance before the semester decides it for you.
+                </h1>
+
+                <p>
+                    Sign in with your registered roll number and password
+                    to see course-wise attendance, teacher comments and alerts.
+                </p>
+            </div>
+
+            <small style="color:#b5e3c8">
+                Student Site · UI preview
+            </small>
+
+        </div>
+
+        <form id="lf" autocomplete="off">
+
+            <h2>Student sign in</h2>
+
+            <p class="sub">
+                Use your registered credentials.
+            </p>
+
+            <label for="roll">Roll number</label>
+            <input
+                id="roll"
+                type="text"
+                placeholder="e.g. 2307001"
+            >
+
+            <label for="pw">Password</label>
+            <input
+                id="pw"
+                type="password"
+                placeholder="Password"
+            >
+
+            <div class="err hide" id="lerr">
+                Enter your roll number and password.
+            </div>
+
+            <button class="btn" type="submit">
+                Sign in
+            </button>
+
+            <p class="note">
+                Preview only: any roll and password opens the sample dashboard.
+                In the real app this calls the existing C authentication.
+            </p>
+
+        </form>
+
+    </section>
+
+
+    <!-- STUDENT DASHBOARD -->
+    <div class="app hide" id="app">
+
+        <!-- SIDEBAR -->
+        <aside>
+
+            <div class="logo">
+                <i>SA</i>
+                <span class="t">Smart Attendance</span>
+            </div>
+
+            <!-- Navigation menu -->
+            <div id="nav"></div>
+
+            <div class="sp"></div>
+
+            <!-- Student information -->
+            <div class="chip">
+
+                <i>SS</i>
+
+                <div class="t">
+                    Sample Student
+                    <small>Roll 2307001</small>
+                </div>
+
+            </div>
+
+            <!-- Logout button -->
+            <button class="nav" id="out">
+                <span>⎋</span>
+                <span class="t">Logout</span>
+            </button>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main id="view">
+            <!-- Dashboard content will be displayed here by JavaScript -->
+        </main>
+
+    </div>
+
+
+    <!-- External JavaScript File -->
+    <script src="script.js"></script>
+
+</body>
+</html>
