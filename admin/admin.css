@@ -147,6 +147,7 @@ input[readonly] {
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  text-decoration: none;
   transition: background 0.2s;
 }
 
@@ -241,6 +242,7 @@ input[readonly] {
   border: none;
   color: #d1fae5;
   text-align: left;
+  text-decoration: none;
   padding: 12px 14px;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -559,3 +561,122 @@ input[readonly] {
   .dashboard-container { flex-direction: column; }
   .sidebar { width: 100%; }
 }
+
+
+
+/* =========================================
+   INDIVIDUAL STUDENT ATTENDANCE REPORT CARD
+========================================= */
+.empty-search-state {
+  background: var(--white);
+  border: 1px dashed #bbf7d0;
+  border-radius: var(--radius);
+  padding: 44px 20px;
+  text-align: center;
+}
+
+.empty-search-state i {
+  font-size: 2.6rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.empty-search-state h4 {
+  color: var(--secondary);
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.student-report-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(6, 78, 59, 0.06);
+}
+
+.report-header {
+  background: linear-gradient(135deg, var(--primary-soft) 0%, #dcfce7 100%);
+  padding: 22px 26px;
+  border-bottom: 1px solid #bbf7d0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.report-student-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.report-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.report-student-info h3 {
+  color: var(--secondary);
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.report-student-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.report-overall-box {
+  background: var(--white);
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid #bbf7d0;
+  text-align: right;
+  min-width: 170px;
+}
+
+.report-overall-box span.label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.report-overall-box strong.pct-big {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-right: 8px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  max-width: 140px;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+}
+
+.fill-good { background: var(--success); }
+.fill-warn { background: var(--warning); }
+.fill-low  { background: var(--danger); }

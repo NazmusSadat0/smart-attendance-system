@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Management | SmartAttend Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body data-page="teachers">
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fa-solid fa-fingerprint"></i>
+        <span>SmartAttend Admin</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="courses.html" class="nav-item"><i class="fa-solid fa-book-open"></i> 1. Course Management</a>
+        <a href="teachers.html" class="nav-item active"><i class="fa-solid fa-chalkboard-user"></i> 2. Teacher Management</a>
+        <a href="students.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> 3. Student Management</a>
+        <a href="profile.html" class="nav-item"><i class="fa-solid fa-id-card"></i> 4. Admin Profile</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" class="btn-outline full-width" style="display:block; text-align:center; text-decoration:none;">
+          <i class="fa-solid fa-sliders"></i> Change Session/Term
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="active-context-badges">
+          <span class="badge"><i class="fa-regular fa-calendar"></i> Session: <strong id="display-session">24-25</strong></span>
+          <span class="badge"><i class="fa-solid fa-layer-group"></i> Term: <strong id="display-term">3.1</strong></span>
+          <span class="badge"><i class="fa-solid fa-users-rectangle"></i> Section: <strong id="display-section">A</strong></span>
+        </div>
+        <div class="admin-greeting">
+          <span>Logged in as <strong id="topbar-admin-name">Md. Tariqul Islam</strong></span>
+        </div>
+      </header>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2>Teacher Management</h2>
+          <div class="sub-tabs">
+            <button class="sub-tab active" onclick="switchSubTab(event, 'teacher-list')">Teachers & Assignments</button>
+            <button class="sub-tab" onclick="switchSubTab(event, 'add-teacher')">+ Add Teacher</button>
+            <button class="sub-tab" onclick="switchSubTab(event, 'remove-teacher')">- Remove Teacher</button>
+          </div>
+        </div>
+
+        <div id="teacher-list" class="sub-view active">
+          <div class="form-card mb-20">
+            <h3>Assign Course to Teacher</h3>
+            <form id="assign-course-form" class="inline-form">
+              <select id="assign-teacher-select" required></select>
+              <select id="assign-course-select" required></select>
+              <button type="submit" class="btn-primary">Assign Course</button>
+            </form>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Teacher ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Assigned Password</th>
+                  <th>Assigned Courses (Click × to Unassign)</th>
+                </tr>
+              </thead>
+              <tbody id="teachers-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="add-teacher" class="sub-view hidden">
+          <div class="form-card">
+            <h3>Add New Teacher</h3>
+            <form id="add-teacher-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Teacher ID</label>
+                  <input type="text" id="teacher-id" placeholder="e.g., T-104" required />
+                </div>
+                <div class="form-group">
+                  <label>Teacher Name</label>
+                  <input type="text" id="teacher-name" placeholder="e.g., Dr. Mahmudul Hasan" required />
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="teacher-email" placeholder="teacher@university.edu" required />
+                </div>
+                <div class="form-group">
+                  <label>Set Teacher Login Password</label>
+                  <input type="text" id="teacher-password" placeholder="Set password for teacher" required />
+                </div>
+              </div>
+              <button type="submit" class="btn-primary">Register Teacher</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="remove-teacher" class="sub-view hidden">
+          <div class="form-card">
+            <h3>Remove Teacher</h3>
+            <p class="muted mb-20">Select a teacher to remove them. Any courses assigned to them will become unassigned.</p>
+            <form id="remove-teacher-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Select Teacher to Remove</label>
+                  <select id="remove-teacher-select" required></select>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary btn-danger-solid">
+                <i class="fa-solid fa-trash"></i> Remove Teacher
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,78 +1,157 @@
-<div class="section-header">
-  <h2>Course Management</h2>
-  <div class="sub-tabs">
-    <button class="sub-tab active" onclick="switchSubTab(event, 'check-courses')">Course Dashboard</button>
-    <button class="sub-tab" onclick="switchSubTab(event, 'add-course')">+ Add Course</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Management | SmartAttend Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body data-page="courses">
 
-<!-- Sub-view 1: Course Dashboard -->
-<div id="check-courses" class="sub-view active">
-  <div class="table-responsive">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Course Code</th>
-          <th>Course Title</th>
-          <th>Assigned Teacher</th>
-          <th>Total Classes</th>
-          <th>Course Password</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="courses-table-body"></tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Sub-view 2: Add Course -->
-<div id="add-course" class="sub-view hidden">
-  <div class="form-card">
-    <h3>Register New Course</h3>
-    <form id="add-course-form">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Course Code</label>
-          <input type="text" id="course-code" placeholder="e.g., CSE-3101" required />
-        </div>
-        <div class="form-group">
-          <label>Course Title</label>
-          <input type="text" id="course-title" placeholder="e.g., Software Engineering" required />
-        </div>
-        <div class="form-group">
-          <label>Total Scheduled Classes</label>
-          <input type="number" id="course-classes" min="1" value="30" required />
-        </div>
-        <div class="form-group">
-          <label>Set Course Access Password</label>
-          <input type="text" id="course-password" placeholder="Set password for this course" required />
-        </div>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fa-solid fa-fingerprint"></i>
+        <span>SmartAttend Admin</span>
       </div>
-      <button type="submit" class="btn-primary">Create Course</button>
-    </form>
-  </div>
-</div>
 
-<!-- Brief Course Attendance Modal -->
-<div id="course-modal" class="modal hidden">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="modal-course-title">Course Attendance Details</h3>
-      <button class="close-modal" onclick="closeCourseModal()">&times;</button>
-    </div>
-    <div id="modal-course-meta" class="modal-meta"></div>
-    <div class="table-responsive">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Roll No.</th>
-            <th>Student Name</th>
-            <th>Attended / Total</th>
-            <th>Percentage</th>
-          </tr>
-        </thead>
-        <tbody id="modal-students-body"></tbody>
-      </table>
+      <nav class="sidebar-nav">
+        <a href="courses.html" class="nav-item active"><i class="fa-solid fa-book-open"></i> 1. Course Management</a>
+        <a href="teachers.html" class="nav-item"><i class="fa-solid fa-chalkboard-user"></i> 2. Teacher Management</a>
+        <a href="students.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> 3. Student Management</a>
+        <a href="profile.html" class="nav-item"><i class="fa-solid fa-id-card"></i> 4. Admin Profile</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" class="btn-outline full-width" style="display:block; text-align:center; text-decoration:none;">
+          <i class="fa-solid fa-sliders"></i> Change Session/Term
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="active-context-badges">
+          <span class="badge"><i class="fa-regular fa-calendar"></i> Session: <strong id="display-session">24-25</strong></span>
+          <span class="badge"><i class="fa-solid fa-layer-group"></i> Term: <strong id="display-term">3.1</strong></span>
+          <span class="badge"><i class="fa-solid fa-users-rectangle"></i> Section: <strong id="display-section">A</strong></span>
+        </div>
+        <div class="admin-greeting">
+          <span>Logged in as <strong id="topbar-admin-name">Md. Tariqul Islam</strong></span>
+        </div>
+      </header>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2>Course Management</h2>
+          <div class="sub-tabs">
+            <button class="sub-tab active" onclick="switchSubTab(event, 'check-courses')">Course Dashboard</button>
+            <button class="sub-tab" onclick="switchSubTab(event, 'student-enrollment')">Student Enrollment</button>
+            <button class="sub-tab" onclick="switchSubTab(event, 'add-course')">+ Add Course</button>
+          </div>
+        </div>
+
+        <!-- Sub-view 1: Course Dashboard -->
+        <div id="check-courses" class="sub-view active">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Title</th>
+                  <th>Assigned Teacher</th>
+                  <th>Enrolled Students</th>
+                  <th>Total Classes</th>
+                  <th>Course Password</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="courses-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sub-view 2: Assign / Unassign Courses to Students -->
+        <div id="student-enrollment" class="sub-view hidden">
+          <div class="form-card mb-20">
+            <h3>Assign Course to Student(s)</h3>
+            <form id="assign-student-course-form" class="inline-form">
+              <select id="enroll-student-select" required></select>
+              <select id="enroll-course-select" required></select>
+              <button type="submit" class="btn-primary">Assign Course</button>
+            </form>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Roll No.</th>
+                  <th>Student Name</th>
+                  <th>Assigned Courses (Click × to Unassign)</th>
+                </tr>
+              </thead>
+              <tbody id="student-enrollment-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sub-view 3: Add Course -->
+        <div id="add-course" class="sub-view hidden">
+          <div class="form-card">
+            <h3>Register New Course</h3>
+            <form id="add-course-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Course Code</label>
+                  <input type="text" id="course-code" placeholder="e.g., CSE-3101" required />
+                </div>
+                <div class="form-group">
+                  <label>Course Title</label>
+                  <input type="text" id="course-title" placeholder="e.g., Software Engineering" required />
+                </div>
+                <div class="form-group">
+                  <label>Total Scheduled Classes</label>
+                  <input type="number" id="course-classes" min="1" value="30" required />
+                </div>
+                <div class="form-group">
+                  <label>Set Course Access Password</label>
+                  <input type="text" id="course-password" placeholder="Set password for this course" required />
+                </div>
+              </div>
+              <button type="submit" class="btn-primary">Create Course</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Brief Course Attendance Modal -->
+  <div id="course-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-course-title">Course Attendance Details</h3>
+        <button class="close-modal" onclick="closeCourseModal()">&times;</button>
+      </div>
+      <div id="modal-course-meta" class="modal-meta"></div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Roll No.</th>
+              <th>Student Name</th>
+              <th>Attended / Total</th>
+              <th>Percentage</th>
+            </tr>
+          </thead>
+          <tbody id="modal-students-body"></tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
