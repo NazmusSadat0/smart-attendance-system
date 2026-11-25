@@ -1,0 +1,78 @@
+<div class="section-header">
+  <h2>Course Management</h2>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchSubTab(event, 'check-courses')">Course Dashboard</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'add-course')">+ Add Course</button>
+  </div>
+</div>
+
+<!-- Sub-view 1: Course Dashboard -->
+<div id="check-courses" class="sub-view active">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th>Assigned Teacher</th>
+          <th>Total Classes</th>
+          <th>Course Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="courses-table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Sub-view 2: Add Course -->
+<div id="add-course" class="sub-view hidden">
+  <div class="form-card">
+    <h3>Register New Course</h3>
+    <form id="add-course-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Course Code</label>
+          <input type="text" id="course-code" placeholder="e.g., CSE-3101" required />
+        </div>
+        <div class="form-group">
+          <label>Course Title</label>
+          <input type="text" id="course-title" placeholder="e.g., Software Engineering" required />
+        </div>
+        <div class="form-group">
+          <label>Total Scheduled Classes</label>
+          <input type="number" id="course-classes" min="1" value="30" required />
+        </div>
+        <div class="form-group">
+          <label>Set Course Access Password</label>
+          <input type="text" id="course-password" placeholder="Set password for this course" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">Create Course</button>
+    </form>
+  </div>
+</div>
+
+<!-- Brief Course Attendance Modal -->
+<div id="course-modal" class="modal hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-course-title">Course Attendance Details</h3>
+      <button class="close-modal" onclick="closeCourseModal()">&times;</button>
+    </div>
+    <div id="modal-course-meta" class="modal-meta"></div>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Roll No.</th>
+            <th>Student Name</th>
+            <th>Attended / Total</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody id="modal-students-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="section-header">
+  <h2>Teacher Management</h2>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchSubTab(event, 'teacher-list')">Teachers & Assignments</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'add-teacher')">+ Add Teacher</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'remove-teacher')">- Remove Teacher</button>
+  </div>
+</div>
+
+<!-- Sub-view 1: Teachers & Course Assignment -->
+<div id="teacher-list" class="sub-view active">
+  <div class="form-card mb-20">
+    <h3>Assign Course to Teacher</h3>
+    <form id="assign-course-form" class="inline-form">
+      <select id="assign-teacher-select" required></select>
+      <select id="assign-course-select" required></select>
+      <button type="submit" class="btn-primary">Assign Course</button>
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Teacher ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Assigned Password</th>
+          <th>Assigned Courses (Click × to Unassign)</th>
+        </tr>
+      </thead>
+      <tbody id="teachers-table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Sub-view 2: Add Teacher -->
+<div id="add-teacher" class="sub-view hidden">
+  <div class="form-card">
+    <h3>Add New Teacher</h3>
+    <form id="add-teacher-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Teacher ID</label>
+          <input type="text" id="teacher-id" placeholder="e.g., T-104" required />
+        </div>
+        <div class="form-group">
+          <label>Teacher Name</label>
+          <input type="text" id="teacher-name" placeholder="e.g., Dr. Mahmudul Hasan" required />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="teacher-email" placeholder="teacher@university.edu" required />
+        </div>
+        <div class="form-group">
+          <label>Set Teacher Login Password</label>
+          <input type="text" id="teacher-password" placeholder="Set password for teacher" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">Register Teacher</button>
+    </form>
+  </div>
+</div>
+
+<!-- Sub-view 3: Remove Teacher -->
+<div id="remove-teacher" class="sub-view hidden">
+  <div class="form-card">
+    <h3>Remove Teacher</h3>
+    <p class="muted mb-20">Select a teacher to remove them. Any courses assigned to them will become unassigned.</p>
+    <form id="remove-teacher-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Select Teacher to Remove</label>
+          <select id="remove-teacher-select" required></select>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary btn-danger-solid">
+        <i class="fa-solid fa-trash"></i> Remove Teacher
+      </button>
+    </form>
+  </div>
+</div>

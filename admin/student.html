@@ -1,0 +1,116 @@
+<div class="section-header">
+  <h2>Student Management</h2>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchSubTab(event, 'student-list')">Registered Students</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'attendance-records')">Attendance Records</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'register-student')">+ Register Student</button>
+    <button class="sub-tab" onclick="switchSubTab(event, 'remove-student')">- Remove Student</button>
+  </div>
+</div>
+
+<!-- Sub-view 1: Registered Students Info Only -->
+<div id="student-list" class="sub-view active">
+  <div class="filter-bar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="roll-search-input" placeholder="Search by Roll Number (e.g., 2107001)..." />
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Roll No.</th>
+          <th>Student Name</th>
+          <th>Student Email</th>
+          <th>Student Password</th>
+        </tr>
+      </thead>
+      <tbody id="students-table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Sub-view 2: Course-Wise Attendance Records -->
+<div id="attendance-records" class="sub-view hidden">
+  <div class="filter-bar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="att-roll-search-input" placeholder="Search Roll Number (e.g., 2107001)..." />
+    </div>
+    <div class="course-filter">
+      <label for="attendance-course-filter">Select Course:</label>
+      <select id="attendance-course-filter"></select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Roll No.</th>
+          <th>Student Name</th>
+          <th>Course</th>
+          <th>Attended / Total</th>
+          <th>Attendance %</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="attendance-records-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Sub-view 3: Register Student -->
+<div id="register-student" class="sub-view hidden">
+  <div class="form-card">
+    <h3>Register Student for Current Session/Term/Section</h3>
+    <form id="register-student-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Student Roll Number</label>
+          <input type="text" id="student-roll" placeholder="e.g., 2107045" required />
+        </div>
+        <div class="form-group">
+          <label>Student Full Name</label>
+          <input type="text" id="student-name" placeholder="e.g., Nazmus Sadat" required />
+        </div>
+        <div class="form-group">
+          <label>Student Email</label>
+          <input type="email" id="student-email" placeholder="e.g., 2107045@student.university.edu" required />
+        </div>
+        <div class="form-group">
+          <label>Set Student Login Password</label>
+          <input type="text" id="student-password" placeholder="Set password for student" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">Register Student</button>
+    </form>
+  </div>
+</div>
+
+<!-- Sub-view 4: Remove Student -->
+<div id="remove-student" class="sub-view hidden">
+  <div class="form-card">
+    <h3>Remove Student</h3>
+    <p class="muted mb-20">Enter the student's Roll Number or select from the list to remove them from this Session/Term/Section.</p>
+    <form id="remove-student-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Enter Roll Number</label>
+          <input type="text" id="remove-student-roll-input" placeholder="e.g., 2107001" required />
+        </div>
+        <div class="form-group">
+          <label>Or Select Registered Student</label>
+          <select id="remove-student-select">
+            <option value="">-- Choose Student --</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary btn-danger-solid">
+        <i class="fa-solid fa-trash"></i> Remove Student
+      </button>
+    </form>
+  </div>
+</div>
