@@ -624,3 +624,116 @@ tr.row:hover td {
         padding: 20px 16px;
     }
 }
+
+/* PROFILE PICTURE */
+#sideAvatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#sideAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-photo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.profile-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--brand-2);
+    border: 3px solid var(--brand);
+}
+
+.profile-photo-placeholder {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand-2);
+    color: var(--brand);
+    font-size: 36px;
+    font-weight: 700;
+    border: 3px solid var(--brand);
+}
+
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-actions button,
+.profile-form button {
+    cursor: pointer;
+}
+
+.profile-form {
+    display: grid;
+    gap: 10px;
+    max-width: 500px;
+}
+
+.profile-form label {
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.profile-message {
+    margin-top: 12px;
+    color: var(--ok);
+}
+/* PASSWORD SETTINGS */
+
+.password-summary {
+    margin-top: 20px;
+}
+
+.password-summary h3 {
+    margin-bottom: 8px;
+}
+
+.password-summary p {
+    letter-spacing: 3px;
+    font-size: 18px;
+}
+
+.password-form {
+    margin-top: 20px;
+}
+
+.password-form h3 {
+    margin-bottom: 10px;
+}

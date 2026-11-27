@@ -55,14 +55,18 @@
             <input
                 id="roll"
                 type="text"
-                placeholder="e.g. 2307001"
+                 inputmode="numeric"
+                 pattern="[0-9]+"
+                 placeholder="Enter your roll number"
+                  required
             >
 
             <label for="pw">Password</label>
             <input
                 id="pw"
                 type="password"
-                placeholder="Password"
+                placeholder="Enter your password"
+                required
             >
 
             <div class="err hide" id="lerr">
@@ -101,15 +105,13 @@
 
             <!-- Student information -->
             <div class="chip">
+              <i id="sideAvatar">SS</i>
 
-                <i>SS</i>
-
-                <div class="t">
-                    Sample Student
-                    <small>Roll 2307001</small>
-                </div>
-
-            </div>
+               <div class="t" id="sideStudentInfo">
+                 Sample Student
+             <small>Roll 2307001</small>
+               </div>
+              </div>
 
             <!-- Logout button -->
             <button class="nav" id="out">

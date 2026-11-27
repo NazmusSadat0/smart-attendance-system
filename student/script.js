@@ -66,6 +66,39 @@ var N = [
 var MIN = 75;
 var WARN = 80;
 
+
+// PROFILE SETTINGS
+
+var profilePhoto = localStorage.getItem("studentProfilePhoto") || "";
+var pendingPhoto = "";
+var profileEditing = false;
+var passwordEditing = false;
+if (localStorage.getItem("studentPasswordResetDone") !== "yes") {
+    localStorage.setItem("studentPassword", "12345678");
+    localStorage.setItem("studentPasswordResetDone", "yes");
+}
+
+var studentPassword = localStorage.getItem("studentPassword") || "";
+
+// Load saved profile information
+
+var savedProfile = localStorage.getItem("studentProfile");
+
+if (savedProfile) {
+    try {
+        var savedData = JSON.parse(savedProfile);
+
+        S.name = savedData.name || S.name;
+        S.email = savedData.email || S.email;
+
+    } catch (e) {
+        console.log("Could not load saved profile.");
+    }
+}
+
+
+// ATTENDANCE FUNCTIONS
+
 function pct(c) {
     return c.tot ? Math.round(c.att * 1000 / c.tot) / 10 : 0;
 }
@@ -95,8 +128,11 @@ var T = C.reduce(function(a, c) {
 
 var OP = T ? Math.round(A * 1000 / T) / 10 : 0;
 
+
+// NAVIGATION
+// Dashboard removed from the student navigation.
+
 var pages = [
-    ["dashboard", "Dashboard", "▦"],
     ["attendance", "My Attendance", "✓"],
     ["courses", "My Courses", "▤"],
     ["history", "Attendance History", "◷"],
@@ -108,11 +144,38 @@ var $ = function(i) {
     return document.getElementById(i);
 };
 
+
+// TEXT SAFETY
+
 function esc(s) {
     var d = document.createElement("div");
     d.textContent = s;
     return d.innerHTML;
 }
+
+
+// PROFILE SIDEBAR PHOTO
+
+function updateSidebarPhoto() {
+    var avatar = $("sideAvatar");
+    var studentInfo = $("sideStudentInfo");
+
+    if (!avatar || !studentInfo) return;
+
+    if (profilePhoto) {
+        avatar.innerHTML =
+            '<img src="' + profilePhoto + '" alt="Profile picture">';
+    } else {
+        avatar.textContent = "SS";
+    }
+
+    studentInfo.innerHTML =
+        esc(S.name) +
+        '<small>Roll ' + esc(S.roll) + '</small>';
+}
+
+
+// ATTENDANCE RING
 
 function ring(p) {
     var r = 44;
@@ -124,6 +187,9 @@ function ring(p) {
         '<text x="55" y="61" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">' + p + '%</text>' +
         '</svg>';
 }
+
+
+// SIDEBAR NAVIGATION
 
 function nav(cur) {
     $("nav").innerHTML = pages.map(function(p) {
@@ -139,9 +205,15 @@ function nav(cur) {
     }).join("");
 }
 
+
+// PAGE HEADING
+
 function head(t, s) {
     return '<h2>' + t + '</h2><p class="sub">' + s + '</p>';
 }
+
+
+// ATTENDANCE TABLE
 
 function table(rows, link) {
     return '<div class="scroll"><table><thead><tr>' +
@@ -171,6 +243,9 @@ function table(rows, link) {
 
         '</tbody></table></div>';
 }
+
+
+// ALL PAGES
 
 var V = {
 
@@ -236,6 +311,9 @@ var V = {
         '</div></div>';
     },
 
+
+    // MY ATTENDANCE
+
     attendance: function() {
         return head(
             "My Attendance",
@@ -243,6 +321,9 @@ var V = {
         ) +
         '<div class="card">' + table(C) + '</div>';
     },
+
+
+    // MY COURSES
 
     courses: function() {
         return head(
@@ -269,6 +350,9 @@ var V = {
         '</div>';
     },
 
+
+    // COURSE DETAILS
+
     course: function(i) {
         var c = C[i];
         var p = pct(c);
@@ -294,6 +378,9 @@ var V = {
             '</div></div>';
     },
 
+
+    // ATTENDANCE HISTORY
+
     history: function() {
         return head(
             "Attendance History",
@@ -307,6 +394,9 @@ var V = {
         'If it only keeps totals, we add a date field first. No dates are made up here.' +
         '</div></div>';
     },
+
+
+    // NOTIFICATIONS
 
     notifications: function() {
         return head(
@@ -328,78 +418,519 @@ var V = {
         }).join("");
     },
 
+
+    // MY PROFILE
+
     profile: function() {
+
+        var photo = pendingPhoto || profilePhoto;
+
+        var photoHTML = photo
+            ? '<img class="profile-photo" src="' + photo + '" alt="Profile picture">'
+            : '<div class="profile-photo-placeholder">SS</div>';
+
+
+        // EDIT MODE
+
+        var fields = profileEditing
+
+            ? '<div class="profile-form">' +
+
+                '<label for="editName">Full name</label>' +
+                '<input id="editName" type="text" value="' + esc(S.name) + '">' +
+
+                '<label for="editEmail">Email</label>' +
+                '<input id="editEmail" type="email" value="' + esc(S.email) + '">' +
+
+                '<p><b>Roll number:</b> ' + esc(S.roll) + '</p>' +
+                '<p><b>Department:</b> ' + esc(S.dept) + '</p>' +
+                '<p><b>Academic session:</b> ' + esc(S.session) + '</p>' +
+
+                '<div class="profile-buttons">' +
+                    '<button class="btn" type="button" data-profile-action="save">Save</button>' +
+                    '<button class="btn" type="button" data-profile-action="cancel">Cancel</button>' +
+                '</div>' +
+
+              '</div>'
+
+            // VIEW MODE
+
+            : '<dl class="kv">' +
+
+                '<dt>Full name</dt><dd>' + esc(S.name) + '</dd>' +
+                '<dt>Roll number</dt><dd>' + esc(S.roll) + '</dd>' +
+                '<dt>Department</dt><dd>' + esc(S.dept) + '</dd>' +
+                '<dt>Academic session</dt><dd>' + esc(S.session) + '</dd>' +
+                '<dt>Email</dt><dd>' + esc(S.email) + '</dd>' +
+
+              '</dl>' +
+
+              '<button class="btn" type="button" data-profile-action="edit">Edit Profile</button>';
+
+
+        // PASSWORD SECTION
+
+        var passwordSection = passwordEditing
+
+            ? '<div class="profile-form password-form">' +
+                '<h3>Change Password</h3>' +
+                '<label for="currentPassword">Current password</label>' +
+                '<input id="currentPassword" type="password" autocomplete="current-password" placeholder="Enter current password">' +
+                '<label for="newPassword">New password</label>' +
+                '<input id="newPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters">' +
+                '<label for="confirmPassword">Confirm new password</label>' +
+                '<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Re-enter new password">' +
+                '<p id="passwordError" class="profile-message" style="color:var(--bad)"></p>' +
+                '<div class="profile-buttons">' +
+                    '<button class="btn" type="button" data-profile-action="save-password">Save Password</button>' +
+                    '<button class="btn" type="button" data-profile-action="cancel-password">Cancel</button>' +
+                '</div>' +
+              '</div>'
+
+            : '<div class="password-summary">' +
+                '<h3>Password</h3>' +
+                '<p>••••••••</p>' +
+                '<button class="btn" type="button" data-profile-action="change-password">Change Password</button>' +
+              '</div>';
+
+
         return head(
             "My Profile",
-            "Your registered details. Read-only."
+            "View and manage your registered details."
         ) +
 
-        '<div class="card"><dl class="kv">' +
-        '<dt>Full name</dt><dd>' + esc(S.name) + '</dd>' +
-        '<dt>Roll number</dt><dd>' + S.roll + '</dd>' +
-        '<dt>Department</dt><dd>' + S.dept + '</dd>' +
-        '<dt>Academic session</dt><dd>' + S.session + '</dd>' +
-        '<dt>Email</dt><dd>' + esc(S.email) + '</dd>' +
-        '</dl></div>';
+        '<div class="card">' +
+
+            // PROFILE PICTURE
+
+            '<div class="profile-photo-area">' +
+
+                photoHTML +
+
+                '<div>' +
+
+                    '<h3>' + esc(S.name) + '</h3>' +
+
+                    '<div class="profile-actions">' +
+
+                        '<button class="btn" type="button" data-profile-action="upload">' +
+                        'Upload / Change Photo</button>' +
+
+                        (profilePhoto || pendingPhoto
+                            ? '<button class="btn" type="button" data-profile-action="remove">Remove Photo</button>'
+                            : '') +
+
+                    '</div>' +
+
+                    (pendingPhoto
+
+                        ? '<p>Preview selected. Save your photo below.</p>' +
+
+                          '<button class="btn" type="button" data-profile-action="save-photo">Save Photo</button>' +
+
+                          '<button class="btn" type="button" data-profile-action="cancel-photo">Cancel Photo</button>'
+
+                        : '') +
+
+                '</div>' +
+
+            '</div>' +
+
+            // HIDDEN PHOTO INPUT
+
+            '<input type="file" id="photoInput" accept="image/jpeg,image/png,image/webp" hidden>' +
+
+            // PROFILE INFORMATION
+
+            fields +
+
+            '<hr>' +
+
+            // PASSWORD SETTINGS
+
+            passwordSection +
+
+        '</div>';
     }
+
 };
 
+
+// PAGE NAVIGATION
+
 function go(p, arg) {
+
     $("view").innerHTML =
         p === "course" ? V.course(arg) : V[p]();
 
     nav(p === "course" ? "courses" : p);
+
     window.scrollTo(0, 0);
 }
 
+
 // LOGIN FORM
+
 $("lf").addEventListener("submit", function(e) {
+
     e.preventDefault();
 
-    if (!$("roll").value.trim() || !$("pw").value) {
+    var roll = $("roll").value.trim();
+    var enteredPassword = $("pw").value;
+
+    if (!/^[0-9]+$/.test(roll)) {
+        $("lerr").textContent = "Roll number must contain numbers only.";
+        $("lerr").classList.remove("hide");
+        return;
+    }
+
+    if (!enteredPassword) {
+        $("lerr").textContent = "Please enter your password.";
+        $("lerr").classList.remove("hide");
+        return;
+    }
+
+    // PREVIEW-ONLY PASSWORD CHECK.
+    // The first login sets the initial demo password.
+    if (!studentPassword) {
+        studentPassword = enteredPassword;
+        localStorage.setItem("studentPassword", studentPassword);
+    } else if (enteredPassword !== studentPassword) {
+        $("lerr").textContent = "Incorrect password.";
         $("lerr").classList.remove("hide");
         return;
     }
 
     $("lerr").classList.add("hide");
+
     $("login").classList.add("hide");
     $("app").classList.remove("hide");
 
-    go("dashboard");
+    // Student opens My Attendance after login.
+
+    updateSidebarPhoto();
+    go("attendance");
+
 });
+
 
 // LOGOUT BUTTON
+
 $("out").addEventListener("click", function() {
+
     $("app").classList.add("hide");
     $("login").classList.remove("hide");
+
     $("pw").value = "";
     $("view").innerHTML = "";
+
+    profileEditing = false;
+    passwordEditing = false;
+    pendingPhoto = "";
+
 });
 
-// SIDEBAR NAVIGATION AND COURSE SELECTION
+
+// PROFILE BUTTONS
+
 document.addEventListener("click", function(e) {
+
+    var button = e.target.closest("[data-profile-action]");
+
+    if (!button) return;
+
+    var action = button.dataset.profileAction;
+
+
+    // EDIT PROFILE
+
+    if (action === "edit") {
+
+        profileEditing = true;
+        go("profile");
+
+    }
+
+
+    // CANCEL PROFILE EDITING
+
+    if (action === "cancel") {
+
+        profileEditing = false;
+        go("profile");
+
+    }
+
+
+    // SAVE PROFILE INFORMATION
+
+    if (action === "save") {
+
+        var name = $("editName").value.trim();
+        var email = $("editEmail").value.trim();
+
+        if (!name || !email) {
+
+            alert("Please fill in your name and email.");
+            return;
+
+        }
+
+        if (!$("editEmail").checkValidity()) {
+
+            alert("Please enter a valid email address.");
+            return;
+
+        }
+
+        S.name = name;
+        S.email = email;
+
+        localStorage.setItem("studentProfile", JSON.stringify({
+
+            name: S.name,
+            email: S.email
+
+        }));
+
+        profileEditing = false;
+
+        updateSidebarPhoto();
+        go("profile");
+
+        alert("Profile updated successfully!");
+
+    }
+
+
+    // OPEN PHOTO UPLOAD
+
+    if (action === "upload") {
+
+        $("photoInput").click();
+
+    }
+
+
+    // REMOVE PROFILE PHOTO
+
+    if (action === "remove") {
+
+        if (confirm("Are you sure you want to remove your profile picture?")) {
+
+            profilePhoto = "";
+            pendingPhoto = "";
+
+            localStorage.removeItem("studentProfilePhoto");
+
+            updateSidebarPhoto();
+            go("profile");
+
+        }
+
+    }
+
+
+    // SAVE PROFILE PHOTO
+
+    if (action === "save-photo") {
+
+        if (pendingPhoto) {
+
+            try {
+
+                localStorage.setItem("studentProfilePhoto", pendingPhoto);
+
+                profilePhoto = pendingPhoto;
+                pendingPhoto = "";
+
+                updateSidebarPhoto();
+                go("profile");
+
+                alert("Profile picture saved successfully!");
+
+            } catch (error) {
+
+                alert("Could not save the picture. Please choose a smaller image.");
+
+            }
+
+        }
+
+    }
+
+
+    // CANCEL PHOTO PREVIEW
+
+    if (action === "cancel-photo") {
+
+        pendingPhoto = "";
+        go("profile");
+
+    }
+
+
+    // OPEN CHANGE PASSWORD FORM
+
+    if (action === "change-password") {
+
+        passwordEditing = true;
+        go("profile");
+
+    }
+
+
+    // CANCEL CHANGE PASSWORD
+
+    if (action === "cancel-password") {
+
+        passwordEditing = false;
+        go("profile");
+
+    }
+
+
+    // SAVE NEW PASSWORD
+
+    if (action === "save-password") {
+
+        var currentPassword = $("currentPassword").value;
+        var newPassword = $("newPassword").value;
+        var confirmPassword = $("confirmPassword").value;
+        var passwordError = $("passwordError");
+
+        if (currentPassword !== studentPassword) {
+            passwordError.textContent = "Your current password is incorrect.";
+            return;
+        }
+
+        if (newPassword.length < 8) {
+            passwordError.textContent = "Your new password must be at least 8 characters.";
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            passwordError.textContent = "The new passwords do not match.";
+            return;
+        }
+
+        if (newPassword === currentPassword) {
+            passwordError.textContent = "Choose a password different from your current password.";
+            return;
+        }
+
+        studentPassword = newPassword;
+        localStorage.setItem("studentPassword", studentPassword);
+
+        passwordEditing = false;
+        go("profile");
+
+        alert("Password changed successfully. Use your new password next time you log in.");
+
+    }
+
+});
+
+
+// PROFILE PHOTO SELECTION
+
+document.addEventListener("change", function(e) {
+
+    if (e.target.id !== "photoInput") return;
+
+    var file = e.target.files[0];
+
+    if (!file) return;
+
+    var allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+
+        alert("Please select a JPG, PNG, or WebP image.");
+
+        e.target.value = "";
+        return;
+
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+
+        alert("Image size must be 2 MB or less.");
+
+        e.target.value = "";
+        return;
+
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        pendingPhoto = event.target.result;
+
+        go("profile");
+
+    };
+
+    reader.onerror = function() {
+
+        alert("Could not read the selected image.");
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+// SIDEBAR NAVIGATION AND COURSE SELECTION
+
+document.addEventListener("click", function(e) {
+
     var c = e.target.closest("[data-c]");
 
     if (c) {
+
         go("course", +c.dataset.c);
         return;
+
     }
 
     var n = e.target.closest("[data-p]");
 
     if (n) {
+
         go(n.dataset.p);
+
     }
+
 });
 
+
 // KEYBOARD ACCESS FOR COURSE CARDS
+
 document.addEventListener("keydown", function(e) {
+
     if (e.key === "Enter") {
+
         var c = e.target.closest &&
             e.target.closest("[data-c]");
 
         if (c) {
+
             go("course", +c.dataset.c);
+
         }
+
     }
+
 });
+
+
+// LOAD PROFILE PHOTO IN SIDEBAR WHEN PAGE OPENS
+
+updateSidebarPhoto();
