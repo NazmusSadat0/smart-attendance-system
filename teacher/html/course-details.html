@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Course Details | KUET</title>
+
+  <link rel="stylesheet" href="../teacher.css">
+  <script src="../course-details.js" defer></script>
+</head>
+
+<body>
+
+  <main class="course-details-page">
+
+    <!-- Header -->
+    <header class="details-header">
+      <div>
+        <span class="teacher-badge">KUET | CSE Department</span>
+        <h1>Course Details</h1>
+        <p class="dashboard-subtitle">
+          Manage your selected course.
+        </p>
+      </div>
+
+      <button
+        class="details-back-btn"
+        id="backDashboardBtn"
+        type="button"
+      >
+        ← Dashboard
+      </button>
+    </header>
+
+    <!-- Selected Course -->
+    <section class="selected-course-card">
+
+      <div class="selected-course-icon">📚</div>
+
+      <p class="selected-course-label">SELECTED COURSE</p>
+
+      <h2 id="courseName">Loading course...</h2>
+
+      <div class="course-info">
+        <div class="course-info-item">
+          <span>Course Code</span>
+          <strong id="courseCode">Loading...</strong>
+        </div>
+
+        <div class="course-info-item">
+          <span>Department</span>
+          <strong>Computer Science and Engineering</strong>
+        </div>
+
+        <div class="course-info-item">
+          <span>Semester</span>
+          <strong id="courseSemester">Loading...</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Course Actions -->
+    <section class="course-actions-section">
+
+      <h2>What would you like to do?</h2>
+
+      <p class="actions-subtitle">
+        Choose an action for this course.
+      </p>
+
+      <div class="course-actions-grid">
+
+        <!-- Attendance -->
+        <div class="action-card">
+          <div class="action-icon attendance-icon">✓</div>
+
+          <h3>Take Attendance</h3>
+
+          <p>
+            Mark students as Present or Absent and manage
+            your attendance sessions.
+          </p>
+
+          <button
+            type="button"
+            class="action-btn"
+            id="takeAttendanceBtn"
+          >
+            Take Attendance →
+          </button>
+        </div>
+
+        <!-- Reports -->
+        <div class="action-card">
+          <div class="action-icon reports-icon">▤</div>
+
+          <h3>View Reports</h3>
+
+          <p>
+            Check individual student attendance and
+            overall course attendance records.
+          </p>
+
+          <button
+            type="button"
+            class="action-btn reports-btn"
+            id="viewReportsBtn"
+          >
+            View Reports →
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <p id="courseMessage" class="course-message"
+       role="status" aria-live="polite"></p>
+
+    <footer class="dashboard-footer">
+      KUET Smart Attendance System | Teacher Portal
+    </footer>
+
+  </main>
+
+</body>
+</html>

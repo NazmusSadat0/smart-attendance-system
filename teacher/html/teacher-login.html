@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Login | Smart Attendance System</title>
+  <link rel="stylesheet" href="../teacher.css">
+  <script src="../teacher.js" defer></script>
+</head>
+<body>
+  <main class="teacher-page">
+    <section class="teacher-card">
+      <div class="teacher-badge">KUET Smart Attendance</div>
+
+      <h1>Teacher Login</h1>
+      <p class="teacher-subtitle">
+        Sign in to manage your courses and attendance.
+      </p>
+
+      <div class="teacher-department">
+        <span>Selected Department</span>
+        <strong id="departmentName">Loading...</strong>
+      </div>
+
+      <form id="teacherLoginForm">
+        <div class="teacher-field">
+          <label for="teacherId">Teacher ID</label>
+          <input
+            type="text"
+            id="teacherId"
+            placeholder="Enter your teacher ID"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="teacher-field">
+          <label for="teacherPassword">Password</label>
+          <input
+            type="password"
+            id="teacherPassword"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <p id="loginMessage" class="teacher-message" role="status" aria-live="polite"></p>
+
+        <button type="submit" class="teacher-primary-btn">
+          Login
+        </button>
+      </form>
+
+      <button
+        type="button"
+        class="teacher-back-btn"
+        onclick="window.location.href='/'"
+      >
+        ← Back to Main Portal
+      </button>
+
+      <p class="teacher-demo">
+        Demo login: <strong>T001</strong> /
+        <strong>teacher123</strong>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

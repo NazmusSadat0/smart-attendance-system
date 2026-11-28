@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Reports | Smart Attendance System</title>
+
+    <link rel="stylesheet" href="../teacher.css">
+</head>
+
+<body>
+
+    <div class="reports-container">
+
+        <header class="reports-header">
+            <div>
+                <h1>Attendance Reports</h1>
+                <p id="reportCourseCode">Loading course...</p>
+                <h2 id="reportCourseName"></h2>
+            </div>
+
+            <button id="backToCourseBtn" class="secondary-btn">
+                Back to Course
+            </button>
+        </header>
+
+        <!-- Summary Cards -->
+        <section class="report-summary">
+
+            <div class="summary-card">
+                <h3>Total Students</h3>
+                <p id="totalStudents">0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Sessions</h3>
+                <p id="totalSessions">0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Average Attendance</h3>
+                <p id="averageAttendance">0%</p>
+            </div>
+
+        </section>
+
+        <!-- Individual Student Report -->
+        <section class="report-section">
+
+            <h2>Individual Student Report</h2>
+
+            <p>
+                Enter a student's roll number to view their attendance details.
+            </p>
+
+            <div class="student-search">
+                <input
+                    type="text"
+                    id="rollSearch"
+                    placeholder="Enter student roll number"
+                >
+
+                <button id="searchStudentBtn" class="primary-btn">
+                    Search
+                </button>
+            </div>
+
+            <div id="individualReport" class="individual-report" hidden>
+
+                <h3 id="individualStudentName"></h3>
+
+                <p id="individualStudentRoll"></p>
+
+                <div class="individual-details">
+                    <div>
+                        <span>Total Classes</span>
+                        <strong id="individualTotalClasses">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Classes Attended</span>
+                        <strong id="individualClassesAttended">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Classes Absent</span>
+                        <strong id="individualClassesAbsent">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Attendance Percentage</span>
+                        <strong id="individualPercentage">0%</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <p id="searchMessage" role="status" aria-live="polite"></p>
+
+        </section>
+
+        <!-- Course-wide Report -->
+        <section class="report-section">
+
+            <h2>Course Attendance Report</h2>
+
+            <p>
+                Students are arranged from highest to lowest attendance percentage.
+            </p>
+
+            <div class="table-container">
+
+                <table class="attendance-table">
+
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Student Name</th>
+                            <th>Roll Number</th>
+                            <th>Present</th>
+                            <th>Absent</th>
+                            <th>Attendance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="reportTableBody">
+                        <!-- Report rows will be generated using JavaScript -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p id="emptyReportMessage"></p>
+
+        </section>
+
+    </div>
+
+    <script src="../attendance-reports.js" defer></script>
+
+</body>
+</html>

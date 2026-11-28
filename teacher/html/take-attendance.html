@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Attendance | Smart Attendance System</title>
+
+    <link rel="stylesheet" href="../teacher.css">
+</head>
+<body>
+
+    <div class="attendance-container">
+
+        <header class="attendance-header">
+            <div>
+                <h1>Take Attendance</h1>
+                <p id="courseCode">Loading course...</p>
+                <h2 id="courseName"></h2>
+            </div>
+
+            <button id="backToCourseBtn" class="secondary-btn">
+                Back to Course
+            </button>
+        </header>
+
+        <main class="attendance-main">
+
+            <section id="sessionChoice" class="session-choice" hidden>
+                <h2>Previous Attendance Session Found</h2>
+                <p>
+                    You have an unfinished attendance session for this course.
+                    What would you like to do?
+                </p>
+
+                <button id="continueSessionBtn" class="primary-btn">
+                    Continue Previous Session
+                </button>
+
+                <button id="newSessionBtn" class="secondary-btn">
+                    Start New Session
+                </button>
+            </section>
+
+            <section id="attendanceArea" hidden>
+
+                <div class="attendance-progress">
+                    <p id="progressText">Student 1 of 10</p>
+                    <div class="progress-track">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="student-card">
+                    <p class="student-label">CURRENT STUDENT</p>
+
+                    <h2 id="studentName">Student Name</h2>
+                    <p id="studentRoll">Roll: 000000</p>
+
+                    <p id="attendanceMessage" role="status" aria-live="polite"></p>
+
+                    <div class="attendance-buttons">
+                        <button id="presentBtn" class="present-btn">
+                            Present
+                        </button>
+
+                        <button id="absentBtn" class="absent-btn">
+                            Absent
+                        </button>
+                    </div>
+                </div>
+
+                <button id="stopBtn" class="stop-btn">
+                    Stop Attendance
+                </button>
+
+            </section>
+
+            <section id="completedArea" hidden>
+                <h2>Attendance Completed!</h2>
+                <p>All students have been marked for this session.</p>
+
+                <button id="backAfterCompleteBtn" class="primary-btn">
+                    Back to Course
+                </button>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../take-attendance.js" defer></script>
+</body>
+</html>

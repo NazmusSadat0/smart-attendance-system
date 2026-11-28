@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Teacher Dashboard | KUET</title>
+
+  <link rel="stylesheet" href="../teacher.css">
+  <script src="../dashboard.js" defer></script>
+</head>
+
+<body>
+
+  <main class="dashboard-page">
+
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <div>
+        <span class="teacher-badge">KUET | CSE Department</span>
+        <h1>Teacher Dashboard</h1>
+        <p class="dashboard-subtitle">
+          Smart Attendance Management System
+        </p>
+      </div>
+
+      <button id="logoutBtn" class="logout-btn">
+        Logout
+      </button>
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="welcome-card">
+      <div>
+        <p class="welcome-small">Welcome back,</p>
+        <h2 id="teacherName">Teacher</h2>
+        <p id="teacherInfo">Teacher ID: Loading...</p>
+      </div>
+
+      <div class="welcome-icon">👨‍🏫</div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>My Courses</h2>
+          <p>Select a course to manage attendance and reports.</p>
+        </div>
+
+        <span class="course-count" id="courseCount">
+          0 Courses
+        </span>
+      </div>
+
+      <div class="course-grid" id="courseGrid">
+
+        <!-- Course cards will be added using JavaScript -->
+
+      </div>
+
+    </section>
+
+    <footer class="dashboard-footer">
+      KUET Smart Attendance System | Teacher Portal
+    </footer>
+
+  </main>
+
+</body>
+</html>
