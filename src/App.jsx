@@ -22,6 +22,8 @@ import TeacherReports from "./pages/teacher/TeacherReports";
 import StudentLogin from "./pages/student/StudentLogin";
 import StudentDashboard from "./pages/student/StudentDashboard";
 
+import "./styles/dark-theme.css";
+
 export default function App() {
   return (
     <AppProvider>

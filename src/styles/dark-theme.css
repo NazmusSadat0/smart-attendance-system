@@ -1,0 +1,215 @@
+/* =========================================
+   GLOBAL DARK EMERALD THEME OVERRIDE
+========================================= */
+:root {
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: rgba(34, 197, 94, 0.16);
+  --primary-soft: #132c22;
+  --secondary: #ecfdf5;
+  --bg-light: #07130e;
+  --white: #0d1f18;
+  --text-main: #ecfdf5;
+  --text-muted: #86a898;
+  --border: #1e4234;
+
+  /* Student Portal Variables */
+  --stu-bg: #07130e;
+  --stu-surface: #0d1f18;
+  --stu-ink: #ecfdf5;
+  --stu-mute: #86a898;
+  --stu-line: #1e4234;
+  --stu-brand: #22c55e;
+  --stu-brand-light: rgba(34, 197, 94, 0.16);
+  --stu-side: #040d09;
+  --stu-ok-bg: rgba(34, 197, 94, 0.16);
+  --stu-ok: #4ade80;
+  --stu-warn-bg: rgba(245, 158, 11, 0.16);
+  --stu-warn: #fbbf24;
+  --stu-bad-bg: rgba(239, 68, 68, 0.16);
+  --stu-bad: #f87171;
+  --stu-sh: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+body {
+  background-color: #07130e !important;
+  color: #ecfdf5 !important;
+}
+
+/* =========================================
+   ADMIN & SHARED SURFACES
+========================================= */
+.context-wrapper {
+  background: radial-gradient(circle at top right, #0f2e22 0%, #07130e 65%) !important;
+}
+
+.context-card,
+.form-card,
+.table-responsive,
+.modal-content,
+.empty-search-state,
+.student-report-card,
+.report-overall-box {
+  background-color: #0d1f18 !important;
+  border-color: #1e4234 !important;
+  color: #ecfdf5 !important;
+}
+
+.topbar {
+  background: rgba(13, 31, 24, 0.88) !important;
+  border-bottom-color: #1e4234 !important;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #040d09 0%, #091c14 100%) !important;
+  border-right: 1px solid #1e4234;
+}
+
+.sub-tabs {
+  background: #0a1812 !important;
+  border: 1px solid #1e4234;
+}
+
+.sub-tab.active {
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+
+input,
+select {
+  background-color: #132c22 !important;
+  border-color: #1e4234 !important;
+  color: #ecfdf5 !important;
+}
+
+input::placeholder {
+  color: #648576 !important;
+}
+
+.data-table th {
+  background-color: #132c22 !important;
+  color: #86efac !important;
+}
+
+.data-table tbody tr:hover td {
+  background-color: #122920 !important;
+}
+
+.report-header {
+  background: linear-gradient(135deg, #0f291e 0%, #163b2b 100%) !important;
+  border-bottom-color: #1e4234 !important;
+}
+
+/* =========================================
+   TEACHER PORTAL DARK SURFACES
+========================================= */
+.teacher-page,
+.teacher-shell {
+  background: #07130e !important;
+  color: #ecfdf5 !important;
+}
+
+.teacher-card,
+.course-card,
+.selected-course-card,
+.action-card,
+.attendance-main,
+.summary-card,
+.report-section,
+.individual-details div {
+  background: #0d1f18 !important;
+  border-color: #1e4234 !important;
+  color: #ecfdf5 !important;
+}
+
+.teacher-card h1,
+.dashboard-header h1,
+.details-header h1,
+.attendance-header h1,
+.reports-header h1,
+.section-heading h2,
+.course-card h3,
+.selected-course-card h2,
+.action-card h3,
+.summary-card p,
+.report-section h2,
+.individual-report h3 {
+  color: #ecfdf5 !important;
+}
+
+.teacher-subtitle,
+.dashboard-subtitle,
+.section-heading p,
+.course-card p,
+.actions-subtitle,
+.action-card p,
+.summary-card h3,
+.report-section > p {
+  color: #86a898 !important;
+}
+
+.teacher-department,
+.teacher-demo,
+.student-card,
+.individual-report {
+  background: #132c22 !important;
+  border-color: #1e4234 !important;
+}
+
+.student-card h2 {
+  color: #ecfdf5 !important;
+}
+
+.details-back-btn,
+.secondary-btn,
+.logout-btn {
+  background: #132c22 !important;
+  border-color: #1e4234 !important;
+}
+
+.attendance-table th {
+  background: #132c22 !important;
+  color: #86efac !important;
+}
+
+.attendance-table td {
+  border-bottom-color: #1e4234 !important;
+  color: #d1fae5 !important;
+}
+
+.attendance-table tbody tr:hover {
+  background: #122920 !important;
+}
+
+/* =========================================
+   STUDENT PORTAL DARK SURFACES
+========================================= */
+.stu-login form,
+.stu-card {
+  background: #0d1f18 !important;
+  border-color: #1e4234 !important;
+}
+
+.stu-login form h2,
+.stu-main h2 {
+  color: #ecfdf5 !important;
+}
+
+.stu-note {
+  background: #132c22 !important;
+  border-color: #1e4234 !important;
+}
+
+.stu-nav-btn.on {
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.stu-table th {
+  background: #132c22 !important;
+  color: #86efac !important;
+}
+
+.stu-table tbody tr:hover td {
+  background: #122920 !important;
+}
