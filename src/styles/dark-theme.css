@@ -213,3 +213,199 @@ input::placeholder {
 .stu-table tbody tr:hover td {
   background: #122920 !important;
 }
+
+/* =========================================
+   FULL-WIDTH FIX & VISIBILITY POLISH
+========================================= */
+html, body, #root {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
+.dashboard-container,
+.stu-app,
+.teacher-shell {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Expand Teacher & Student containers on wide screens */
+.dashboard-page,
+.course-details-page,
+.attendance-container,
+.reports-container,
+.stu-main {
+  max-width: 1400px !important;
+  width: 100% !important;
+  margin: 0 auto;
+}
+
+/* Fix barely-visible sidebar brand text */
+.sidebar-brand,
+.sidebar-brand span {
+  color: #ecfdf5 !important;
+}
+
+.nav-item.active {
+  color: #04120b !important;
+  font-weight: 700;
+}
+
+/* =========================================
+   MOBILE POLISH (ADMIN, TEACHER, STUDENT)
+========================================= */
+@media (max-width: 768px) {
+  /* Admin Mobile Layout */
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 30;
+    padding: 12px 16px !important;
+    border-right: none;
+    border-bottom: 1px solid #1e4234;
+  }
+
+  .sidebar-brand {
+    padding: 0 0 10px 0 !important;
+    font-size: 1.05rem;
+  }
+
+  .sidebar-nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    margin-top: 8px !important;
+    padding-bottom: 6px;
+    gap: 6px !important;
+    scrollbar-width: none;
+  }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+    padding: 8px 12px !important;
+    font-size: 0.84rem !important;
+    transform: none !important;
+  }
+
+  .sidebar-footer {
+    flex-direction: row !important;
+    margin-top: 8px;
+    gap: 8px;
+  }
+
+  .sidebar-footer .btn-outline {
+    padding: 7px 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .topbar {
+    position: static !important;
+    padding: 12px 16px !important;
+  }
+
+  .content-section {
+    padding: 16px !important;
+  }
+
+  .sub-tabs {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+  }
+
+  .sub-tab {
+    white-space: nowrap;
+    font-size: 0.82rem !important;
+  }
+
+  /* Student Mobile Layout */
+  .stu-app {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stu-aside {
+    height: auto !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 30;
+    padding: 12px 14px !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px !important;
+  }
+
+  .stu-aside .stu-logo {
+    width: 100%;
+    padding: 0 0 8px 0 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .stu-aside .t {
+    display: inline !important;
+  }
+
+  .stu-nav-btn {
+    width: auto !important;
+    padding: 7px 11px !important;
+    font-size: 0.82rem !important;
+    white-space: nowrap;
+  }
+
+  .stu-chip {
+    display: none !important;
+  }
+
+  .stu-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px 18px !important;
+    gap: 16px !important;
+  }
+
+  .stu-main {
+    padding: 18px 14px 40px !important;
+  }
+
+  /* Teacher Mobile Layout */
+  .dashboard-page,
+  .course-details-page,
+  .attendance-container,
+  .reports-container {
+    padding: 18px 14px 40px !important;
+  }
+
+  .welcome-card {
+    padding: 22px 18px !important;
+  }
+
+  .welcome-icon {
+    display: none;
+  }
+
+  .attendance-buttons {
+    flex-direction: column;
+  }
+
+  .attendance-buttons button {
+    width: 100% !important;
+  }
+
+  /* Tables: smooth horizontal swipe on mobile */
+  .table-responsive,
+  .stu-card {
+    -webkit-overflow-scrolling: touch;
+  }
+}
